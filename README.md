@@ -7,6 +7,24 @@ This project demonstrates the integration of AWS SNS and SQS services using the 
 - **Bun**: A fast JavaScript runtime. Install Bun from [https://bun.sh/](https://bun.sh/).
 - **LocalStack**: A fully functional local AWS cloud stack. Install LocalStack as per guidance from the installation instructions in the LocalStack repository [https://github.com/localstack/localstack](https://github.com/localstack/localstack).
 
+## Connecting AWS CLI with LocalStack
+
+```
+[profile localstack]
+region=us-east-1
+output=json
+endpoint_url = http://localhost:4566
+aws_access_key_id=test
+aws_secret_access_key=test
+```
+
+Then
+
+```bash
+aws sns list-topics --profile localstack
+aws sqs list-queues --profile localstack
+```
+
 # Components
 
 - **publisher.js**  
