@@ -12,7 +12,7 @@ This project demonstrates the integration of AWS SNS and SQS services using the 
 - **publisher.js**  
   Uses the `@aws-sdk/client-sns` module to publish messages to an SNS topic. Each message includes a `RIDER_ID` Message Attribute. This script supports integration with LocalStack by checking for specific environment variables.
 
-- **consumer.js**  
+- **consumer-consistent-hash-enricher.js**  
   An SQS consumer that polls messages from the origin SQS queue. It enhances each message by adding a `CELL_ID` attribute computed using a consistent hash function based on the incoming `RIDER_ID`. The enhanced message is then forwarded to an SNS topic. Processed messages are deleted from the queue after handling.
 
 - **consumer-cell1.js**  
@@ -20,9 +20,6 @@ This project demonstrates the integration of AWS SNS and SQS services using the 
 
 - **consumer-cell2.js**  
   Similar to `consumer-cell1.js`, this script polls messages from another dedicated queue (`cell2`). It processes messages by parsing and logging the payload, then deletes messages after processing. It is tailored for workloads assigned to cell2.
-
-- **consumer-consistent-hash-enricher.js**  
-  Enhances messages by computing a `CELL_ID` using a consistent hash of the `RIDER_ID`. The script forwards the enhanced message to a dedicated SNS topic and ensures messages are deleted from the queue. It also features improved modularity and error handling.
 
 - **consistent-hash.js**  
   Contains the implementation of the consistent hashing functionality used by the consumers to determine the `CELL_ID` based on the `RIDER_ID`. This module is leveraged by multiple consumer scripts to ensure consistent message routing.
