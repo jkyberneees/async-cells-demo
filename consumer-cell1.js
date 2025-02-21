@@ -15,6 +15,10 @@ const awsEndpoint = process.env.AWS_ENDPOINT || 'http://localhost:4566'
 const sqsClient = new SQSClient({
   region,
   endpoint: awsEndpoint,
+  credentials: {
+    accessKeyId: 'test',
+    secretAccessKey: 'test',
+  },
 })
 
 /**

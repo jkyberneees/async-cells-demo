@@ -11,8 +11,11 @@ import {
   SetQueueAttributesCommand,
 } from '@aws-sdk/client-sqs'
 
+const region = process.env.AWS_REGION || 'us-east-1'
+
 // Instantiate AWS SDK clients with LocalStack endpoint
 const snsClient = new SNSClient({
+  region,
   endpoint: process.env.LOCALSTACK_ENDPOINT || 'http://localhost:4566',
   credentials: {
     accessKeyId: 'test',
@@ -21,6 +24,7 @@ const snsClient = new SNSClient({
 })
 
 const sqsClient = new SQSClient({
+  region,
   endpoint: process.env.LOCALSTACK_ENDPOINT || 'http://localhost:4566',
   credentials: {
     accessKeyId: 'test',
