@@ -25,10 +25,18 @@ const awsEndpoint = process.env.AWS_ENDPOINT || 'http://localhost:4566'
 const sqsClient = new SQSClient({
   region,
   endpoint: awsEndpoint,
+  credentials: {
+    accessKeyId: 'test',
+    secretAccessKey: 'test',
+  },
 })
 const snsClient = new SNSClient({
   region,
   endpoint: awsEndpoint,
+  credentials: {
+    accessKeyId: 'test',
+    secretAccessKey: 'test',
+  },
 })
 
 /**
@@ -40,7 +48,7 @@ const snsClient = new SNSClient({
  * @param {Object} message - The SQS message object.
  */
 async function processMessage(message) {
-  let riderId, messageAttributes
+  let riderId, messageAttributes, messageBody
   try {
     const bodyPayload = JSON.parse(message.Body)
     if (
@@ -52,6 +60,7 @@ async function processMessage(message) {
       return
     }
 
+    messageBody = bodyPayload.Message
     messageAttributes = bodyPayload.MessageAttributes
     riderId = messageAttributes.RIDER_ID.Value
   } catch (err) {
@@ -65,9 +74,8 @@ async function processMessage(message) {
   // building forwarding params
   const publishParams = {
     TopicArn: enhancedTopicArn,
-    Message: message.Body,
+    Message: messageBody,
     MessageAttributes: {
-      ...messageAttributes,
       CELL_ID: {
         DataType: 'String',
         StringValue: cellId,
