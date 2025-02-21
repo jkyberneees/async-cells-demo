@@ -12,8 +12,7 @@
   "dependencies": {
     "@aws-sdk/client-sns": "^3.750.0",
     "@aws-sdk/client-sqs": "^3.750.0",
-    "fast-gateway": "^4.0.0",
-    "micromatch": "^4.0.8"
+    "fast-gateway": "^4.0.1"
   },
   "author": "",
   "license": "ISC",
