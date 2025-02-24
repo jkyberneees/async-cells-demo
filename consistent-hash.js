@@ -3,6 +3,8 @@ import crypto from 'crypto'
 /**
  * ConsistentHash implements consistent hashing with virtual nodes for better distribution.
  * It uses MD5 for hashing and maintains a ring-based structure for efficient lookups.
+ *
+ * @see: https://www.npmjs.com/package/fast-hashring
  */
 class ConsistentHash {
   /**
@@ -116,3 +118,5 @@ class ConsistentHash {
 }
 
 export default ConsistentHash
+
+//
